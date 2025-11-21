@@ -1,0 +1,18 @@
+[[source]]
+url = "https://pypi.org/simple"
+verify_ssl = true
+name = "pypi"
+
+[packages]
+polars = {extras = ["pyarrow"], version = "*"}
+plotly = {extras = ["express"], version = "*"}
+pycld2 = "*"
+matplotlib = "*"
+wordcloud = "*"
+
+[dev-packages]
+nbstripout = "*"
+ipykernel = "*"
+
+[requires]
+python_version = "3.12"
