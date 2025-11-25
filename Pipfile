@@ -9,6 +9,10 @@ plotly = {extras = ["express"], version = "*"}
 pycld2 = "*"
 matplotlib = "*"
 wordcloud = "*"
+mlflow = "*"
+scikit-learn = "*"
+spacy = "*"
+joblib = "*"
 
 [dev-packages]
 nbstripout = "*"
