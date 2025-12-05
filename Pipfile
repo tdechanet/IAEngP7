@@ -4,8 +4,8 @@ verify_ssl = true
 name = "pypi"
 
 [packages]
-polars = {extras = ["pyarrow"], version = "*"}
-plotly = {extras = ["express"], version = "*"}
+polars = {extras = ["pyarrow"] }
+plotly = {extras = ["express"] }
 pycld2 = "*"
 matplotlib = "*"
 wordcloud = "*"
@@ -13,6 +13,10 @@ mlflow = "*"
 scikit-learn = "*"
 spacy = "*"
 joblib = "*"
+torch = "*"
+gensim = "*"
+keras = "*"
+tensorflow-cpu = "*"
 
 [dev-packages]
 nbstripout = "*"
