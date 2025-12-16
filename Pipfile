@@ -17,6 +17,12 @@ torch = "*"
 gensim = "*"
 keras = "*"
 tensorflow-cpu = "*"
+transformers = "*"
+onnx = "*"
+onnxscript = "*"
+numpy = "*"
+scipy = "*"
+onnxruntime-gpu = "*"
 
 [dev-packages]
 nbstripout = "*"
