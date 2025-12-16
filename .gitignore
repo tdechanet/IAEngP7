@@ -3,3 +3,4 @@ data
 dataframes
 mlruns
 models
+tokenizer_artifacts
