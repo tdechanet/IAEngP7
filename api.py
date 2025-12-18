@@ -62,12 +62,12 @@ def predict_sentiment(data: TextIn):
 	)
 
 	onnx_input = {
-		"input_ids": inputs["input_ids"].astype(np.int64),
-		"attention_mask": inputs["attention_mask"].astype(np.int64)
+		"input_ids": inputs["input_ids"].astype(np.int64), #type:ignore
+		"attention_mask": inputs["attention_mask"].astype(np.int64) #type:ignore
 	}
 
 	try:
-		logits = session.run(["output"], onnx_input)[0][0]
+		logits = session.run(["output"], onnx_input)[0][0] #type:ignore
 	except RuntimeError as e:
 		print(f"Erreur d'exécution ONNX: {e}")
 		return {"sentiment": "ERREUR_RUNTIME", "confiance": 0.0}
