@@ -2,6 +2,6 @@ Pipfile.lock
 data
 dataframes
 mlruns
-models
-tokenizer_artifacts
+models/*
+!models/bert_reduced_model.onnx
 .pytest_cache
