@@ -23,6 +23,9 @@ onnxscript = "*"
 numpy = "*"
 scipy = "*"
 onnxruntime-gpu = "*"
+uvicorn = "*"
+pytest = "*"
+httpx = "*"
 
 [dev-packages]
 nbstripout = "*"

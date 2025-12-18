@@ -4,3 +4,4 @@ dataframes
 mlruns
 models
 tokenizer_artifacts
+.pytest_cache
