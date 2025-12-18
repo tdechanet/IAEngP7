@@ -1,9 +1,9 @@
 from fastapi.testclient import TestClient
 from api import app
-import pytest
+from pytest import fixture
 
 
-@pytest.fixture
+@fixture
 def client():
     with TestClient(app) as c:
         yield c

@@ -7,7 +7,7 @@ from pydantic import BaseModel
 from contextlib import asynccontextmanager
 
 
-ONNX_PATH = "models/bert_reduced_model.onnx"
+ONNX_PATH = "deployed_models/bert_reduced_model.onnx"
 TOKENIZER_PATH = "tokenizer_artifacts"
 MAX_LENGTH = 64
 LABEL_MAPPING = {0: "NEGATIF", 1: "POSITIF"}

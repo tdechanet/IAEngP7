@@ -3,5 +3,4 @@ data
 dataframes
 mlruns
 models/*
-!models/bert_reduced_model.onnx
 .pytest_cache
