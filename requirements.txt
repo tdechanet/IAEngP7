@@ -7,3 +7,4 @@ transformers
 onnxruntime
 pytest
 httpx
+azure-monitor-opentelemetry
