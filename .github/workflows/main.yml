@@ -26,8 +26,6 @@ jobs:
           pip install -r requirements.txt
 
       - name: Run Tests with Pytest
-        env: 
-          APPLICATIONINSIGHTS_CONNECTION_STRING: ${{ secrets.APPLICATIONINSIGHTS_CONNECTION_STRING }}
         run: |
           pytest
 

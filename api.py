@@ -97,9 +97,15 @@ def predict_sentiment(data: TextIn):
 		confiance=float(confiance)
 	)
 
-connection_string = os.getenv("APPLICATIONINSIGHTS_CONNECTION_STRING")
+CONNECTION_STRING = os.getenv("APPLICATIONINSIGHTS_CONNECTION_STRING")
 
-configure_azure_monitor(connection_string=connection_string)
+if CONNECTION_STRING:
+    try:
+        configure_azure_monitor(connection_string=CONNECTION_STRING)
+    except Exception as e:
+        print(f"WARNING: Azure Monitor error: {e}")
+else:
+    print("WARNING: Mode local sans Azure Monitor.")
 
 logger = logging.Logger(__name__)
 
