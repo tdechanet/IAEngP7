@@ -26,6 +26,7 @@ onnxruntime-gpu = "*"
 uvicorn = "*"
 pytest = "*"
 httpx = "*"
+azure-monitor-opentelemetry = "*"
 
 [dev-packages]
 nbstripout = "*"

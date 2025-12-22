@@ -4,3 +4,4 @@ dataframes
 mlruns
 models/*
 .pytest_cache
+.env

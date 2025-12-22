@@ -3,8 +3,12 @@ from scipy.special import softmax
 from transformers import BertTokenizer
 import onnxruntime as rt
 from fastapi import FastAPI
+from fastapi.responses import RedirectResponse
 from pydantic import BaseModel
 from contextlib import asynccontextmanager
+import logging
+import os
+from azure.monitor.opentelemetry import configure_azure_monitor
 
 
 ONNX_PATH = "deployed_models/bert_reduced_model.onnx"
@@ -20,8 +24,14 @@ class TextIn(BaseModel):
 
 class PredictionOut(BaseModel):
 	sentiment: str
-	confidence: float
+	confiance: float
 
+class FeedbackIn(BaseModel):
+	text: str
+	prediction: str
+
+class FeedbackOut(BaseModel):
+	output: str
 
 @asynccontextmanager
 async def lifespan(app: FastAPI):
@@ -44,6 +54,11 @@ async def lifespan(app: FastAPI):
 	yield
 
 app = FastAPI(title="Projet 7", lifespan=lifespan)
+
+@app.get("/")
+def redirect():
+	return RedirectResponse("/docs")
+
 @app.post("/predict", response_model=PredictionOut)
 def predict_sentiment(data: TextIn):
 
@@ -74,10 +89,37 @@ def predict_sentiment(data: TextIn):
 
 	probabilities = softmax(logits)
 	predicted_class_id = int(np.argmax(probabilities))
-	confidence = probabilities[predicted_class_id]
+	confiance = probabilities[predicted_class_id]
 	sentiment = LABEL_MAPPING[predicted_class_id]
 	
 	return PredictionOut(
 		sentiment=sentiment,
-		confidence=float(confidence)
+		confiance=float(confiance)
 	)
+
+connection_string = os.getenv("APPLICATIONINSIGHTS_CONNECTION_STRING")
+
+configure_azure_monitor(connection_string=connection_string)
+
+logger = logging.Logger(__name__)
+
+@app.post("/feedback", response_model=FeedbackOut)
+def feedback(data: FeedbackIn):
+	
+	prediction = data.prediction
+	text = data.text
+
+	if prediction not in ["NEGATIF", "POSITIF"]:
+		return {"output": "La valeur prédiction doit être égale à 'NEGATIF' ou 'POSITIF'"}
+	
+	logger.warning(
+		"FEEDBACK_USER_ERROR",
+		extra={
+			'custom_dimensions': {
+				'tweet_text': text,
+				'original_prediction': prediction
+			}
+		}
+	)
+
+	return {"output": "Merci pour votre retour"}
