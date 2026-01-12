@@ -5,3 +5,4 @@ mlruns
 models/*
 .pytest_cache
 .env
+*.docx

@@ -107,7 +107,7 @@ if CONNECTION_STRING:
 else:
     print("WARNING: Mode local sans Azure Monitor.")
 
-logger = logging.Logger(__name__)
+logger = logging.getLogger(__name__)
 
 @app.post("/feedback", response_model=FeedbackOut)
 def feedback(data: FeedbackIn):
