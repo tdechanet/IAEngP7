@@ -29,6 +29,7 @@ httpx = "*"
 azure-monitor-opentelemetry = "*"
 streamlit = "*"
 requests = "*"
+opentelemetry-instrumentation-logging = "*"
 
 [dev-packages]
 nbstripout = "*"

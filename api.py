@@ -6,9 +6,22 @@ from fastapi import FastAPI
 from fastapi.responses import RedirectResponse
 from pydantic import BaseModel
 from contextlib import asynccontextmanager
-import logging
 import os
 from azure.monitor.opentelemetry import configure_azure_monitor
+from opentelemetry.instrumentation.logging import LoggingInstrumentor
+import logging
+
+CONNECTION_STRING = os.getenv("APPLICATIONINSIGHTS_CONNECTION_STRING")
+
+if CONNECTION_STRING:
+    try:
+        configure_azure_monitor(connection_string=CONNECTION_STRING)
+        LoggingInstrumentor().instrument(set_logging_format=True)
+    except Exception as e:
+        print(f"WARNING: Azure Monitor error: {e}")
+
+logger = logging.getLogger(__name__)
+logger.setLevel(logging.INFO)
 
 
 ONNX_PATH = "deployed_models/bert_reduced_model.onnx"
@@ -96,18 +109,6 @@ def predict_sentiment(data: TextIn):
 		sentiment=sentiment,
 		confiance=float(confiance)
 	)
-
-CONNECTION_STRING = os.getenv("APPLICATIONINSIGHTS_CONNECTION_STRING")
-
-if CONNECTION_STRING:
-    try:
-        configure_azure_monitor(connection_string=CONNECTION_STRING)
-    except Exception as e:
-        print(f"WARNING: Azure Monitor error: {e}")
-else:
-    print("WARNING: Mode local sans Azure Monitor.")
-
-logger = logging.getLogger(__name__)
 
 @app.post("/feedback", response_model=FeedbackOut)
 def feedback(data: FeedbackIn):
