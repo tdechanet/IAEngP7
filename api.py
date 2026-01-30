@@ -80,7 +80,7 @@ def predict_sentiment(data: TextIn):
 
 	text = data.text
 
-	inputs = tokenizer.encode_plus(
+	inputs = tokenizer(
 		text,
 		add_special_tokens=True,
 		max_length=MAX_LENGTH,
